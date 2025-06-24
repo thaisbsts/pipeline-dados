@@ -3,35 +3,35 @@ import json
 
 class Dados:
     def __init__(self, path, tipo_dados):
-        self.path = path
-        self.tipo_dados = tipo_dados
-        self.dados = self.leitura_dados()
+        self.__path = path
+        self.__tipo_dados = tipo_dados
+        self.dados = self.__leitura_dados()
         self.colunas = self.obter_nomes_colunas()
-        self.qtd_linhas = self.obter_quantidade_dados()
+        self.qtd_linhas = self.__obter_quantidade_dados()
 
-    def leitura_json(self):
+    def __leitura_json(self):
         dados_A = []
-        with open(self.path, 'r') as file:
+        with open(self.__path, 'r') as file:
             dados_A = json.load(file)
         return dados_A
 
-    def leitura_csv(self):
+    def __leitura_csv(self):
         dados_B = []
-        with open(self.path, 'r') as file:
+        with open(self.__path, 'r') as file:
             spamreader = csv.DictReader(file, delimiter=',')
             for row in spamreader:
                 dados_B.append(row)
         return dados_B
 
-    def leitura_dados(self):
+    def __leitura_dados(self):
         dados = []
-        if self.tipo_dados == "csv":
-            dados = self.leitura_csv()
-        elif self.tipo_dados == "json":
-            dados = self.leitura_json()
-        elif self.tipo_dados == "list":
-            dados = self.path
-            self.path = 'lista em memória'
+        if self.__tipo_dados == "csv":
+            dados = self.__leitura_csv()
+        elif self.__tipo_dados == "json":
+            dados = self.__leitura_json()
+        elif self.__tipo_dados == "list":
+            dados = self.__path
+            self.__path = 'lista em memória'
         return dados
 
     def obter_nomes_colunas(self):
@@ -49,7 +49,7 @@ class Dados:
         self.dados = dados_atualizados
         self.colunas = self.obter_nomes_colunas()
     
-    def obter_quantidade_dados(self):
+    def __obter_quantidade_dados(self):
         return len(self.dados)
     
     def unir_dados(dados_csv, dados_json):
@@ -58,7 +58,7 @@ class Dados:
         dados_AB.extend(dados_csv.dados) 
         return Dados(dados_AB, "list")
     
-    def transformar_tabela(self):
+    def __transformar_tabela(self):
         dados_AB_tabela = [self.colunas]
 
         for row in self.dados:
@@ -70,7 +70,7 @@ class Dados:
     
     
     def salvar_tabela(self, path_dadosAB):
-        dados_AB_tabela = self.transformar_tabela()
+        dados_AB_tabela = self.__transformar_tabela()
 
         with open (path_dadosAB, 'w') as file:
             writer = csv.writer(file)

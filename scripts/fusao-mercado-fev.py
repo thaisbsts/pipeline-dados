@@ -26,5 +26,3 @@ dados_fusao = Dados.unir_dados(dados_empresaA, dados_empresaB)
 # Carregamento
 path_dadosAB = 'processed-data/dadosAB.csv'
 dados_fusao.salvar_tabela(path_dadosAB)
-
-
